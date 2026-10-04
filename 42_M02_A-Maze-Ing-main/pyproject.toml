@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mazegen"
+version = "1.0"
+description = "Maze generator project for 42 Prague"
+dependencies = [
+    "pydantic>=2",
+    "rich"
+]
+
+authors = [
+    { name = "ssucha" },
+    { name = "adgomez" }
+]

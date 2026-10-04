@@ -1,0 +1,32 @@
+# --- Maze width (number of cells) ---
+WIDTH=17
+
+# --- Maze height ---
+HEIGHT=20
+
+# --- Entry coordinates (x,y) ---
+ENTRY=0,0
+
+# --- Exit coordinates (x,y) ---
+EXIT=16,19
+
+# --- Output filename ---
+OUTPUT_FILE=maze.txt
+
+# --- Is the maze perfect? ---
+# Perfect = it has only one path between entry and exit
+PERFECT=False
+
+
+# ----- Additional keys (optional) -----
+
+# --- Seed for reproducing the maze generation ---
+# SEED=42
+
+# --- Color scheme ---
+# Choose from: [default, neon, pastel, mono]
+# THEME=pastel
+
+# --- Pattern shown inside the maze ---
+# Choose from: [42, 42_logo, heart, heart_big, diamond, star, target, cat, None]
+PATTERN=cat

@@ -1,0 +1,7 @@
+mypy
+flake8
+setuptools
+build
+wheel
+pydantic>=2
+rich
