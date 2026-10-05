@@ -14,7 +14,7 @@ Legenda: `[x]` pronta · `[ ]` pendente
   - Depende de: nada.
   - Pronta quando: config inválido gera mensagem clara, config válido vira um dicionário.
 
-- [ ] **Task 1 — Grid do labirinto**
+- [X] **Task 1 — Grid do labirinto**
   - Estrutura que guarda as células, cada uma com 4 paredes (N, E, S, W), todas fechadas no início.
   - Operações básicas: consultar uma célula, listar vizinhos dentro dos limites, abrir a parede entre duas células vizinhas (sempre dos dois lados).
   - Depende de: nada.

@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Tuple
 
-from mazegen.cell import Cell
+from src.mazegen.cell import Cell
 
 
 # direction -> (row change, column change, opposite wall)

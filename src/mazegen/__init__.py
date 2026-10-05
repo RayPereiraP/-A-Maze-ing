@@ -1,6 +1,6 @@
 """Reusable maze generation module."""
 
-from mazegen.cell import Cell
-from mazegen.map import Map
+from src.mazegen.cell import Cell
+from src.mazegen.map import Map
 
 __all__ = ["Cell", "Map"]

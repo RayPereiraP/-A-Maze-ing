@@ -5,6 +5,7 @@ from pprint import pprint
 from typing import Optional, Sequence
 
 from src.parser import Config, ConfigError, parse_config
+from src.mazegen.map import Map
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -15,8 +16,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return 1
     try:
         config: Config = parse_config(args[0])
+        project_map = Map(config["HEIGHT"], config["WIDTH"])
+        # for row in project_map.grid:
+        #     for cell in row:
+        #         pprint(vars(cell), sort_dicts=False)
     except ConfigError as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
-    pprint(config, sort_dicts=False)
+    # pprint(config, sort_dicts=False)
     return 0
