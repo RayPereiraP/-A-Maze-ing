@@ -1,0 +1,13 @@
+# Maze dimensions in cells
+WIDTH=20
+HEIGHT=15
+
+# Coordinates (x,y), starting at zero
+ENTRY=0,0
+EXIT=19,14
+
+OUTPUT_FILE=maze.txt
+PERFECT=False
+
+# Optional seed for future reproducible generation
+SEED=42
