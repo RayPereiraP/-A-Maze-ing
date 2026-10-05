@@ -1,2 +1,4 @@
 /tmp
 /src/__pycache__
+/src/mazegen/__pycache__
+/tests/__pycache__
