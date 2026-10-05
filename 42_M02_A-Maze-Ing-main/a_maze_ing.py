@@ -2,6 +2,9 @@
 
 import sys
 
+from pprint import pprint
+
+
 from mazegen import (
     ConfigError, MazeGenError, ValidationError,
     MazeGenerator,
@@ -31,6 +34,7 @@ def main() -> None:
 
         show_path = False
         maze = generator.render_maze_visual(show_path)
+        pprint(maze, sort_dicts=False)
 
         themes = list(THEMES.keys())
         patterns = list(PATTERNS.keys())

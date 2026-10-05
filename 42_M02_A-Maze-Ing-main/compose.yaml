@@ -1,0 +1,15 @@
+name: maze-reference
+
+services:
+  maze:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
+    environment:
+      TERM: xterm-256color
+    command: ["config.txt"]

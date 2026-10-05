@@ -29,4 +29,4 @@ PERFECT=False
 
 # --- Pattern shown inside the maze ---
 # Choose from: [42, 42_logo, heart, heart_big, diamond, star, target, cat, None]
-PATTERN=cat
+PATTERN=heart_big
