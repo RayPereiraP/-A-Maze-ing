@@ -20,7 +20,7 @@ Legenda: `[x]` pronta · `[ ]` pendente
   - Depende de: nada.
   - Pronta quando: dá para criar um grid WxH, abrir uma parede e ver que as duas células concordam.
 
-- [ ] **Task 2 — Padrão "42"**
+- [X] **Task 2 — Padrão "42"**
   - Marca no centro do grid as células que desenham o "42"; elas ficam totalmente fechadas e o gerador não pode entrar nelas.
   - Se o labirinto for pequeno demais, ou se a entrada/saída cair em cima do desenho, o padrão é omitido com uma mensagem de erro no console.
   - Depende de: Task 1.

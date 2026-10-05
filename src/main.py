@@ -2,7 +2,7 @@
 
 import sys
 from pprint import pprint
-from typing import Optional, Sequence
+from typing import Optional, Sequence, Tuple, cast
 
 from src.parser import Config, ConfigError, parse_config
 from src.mazegen.map import Map
@@ -16,10 +16,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return 1
     try:
         config: Config = parse_config(args[0])
-        project_map = Map(config["HEIGHT"], config["WIDTH"])
-        # for row in project_map.grid:
-        #     for cell in row:
-        #         pprint(vars(cell), sort_dicts=False)
+        # The config uses (x, y); the map uses (row, col), so they swap.
+        entry_x, entry_y = cast(Tuple[int, int], config["ENTRY"])
+        exit_x, exit_y = cast(Tuple[int, int], config["EXIT"])
+        project_map = Map(
+            cast(int, config["HEIGHT"]),
+            cast(int, config["WIDTH"]),
+            entry=(entry_y, entry_x),
+            exit=(exit_y, exit_x),
+        )
+        for row in project_map.grid:
+            for cell in row:
+                pprint(vars(cell), sort_dicts=False)
     except ConfigError as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1

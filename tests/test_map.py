@@ -1,14 +1,40 @@
-"""Tests for Task 1: Cell and Map."""
+"""Tests for Task 1 and Task 2: Cell, Map and the "42" pattern."""
 
+import contextlib
+import io
 import unittest
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
-from mazegen import Cell, Map
+from src.mazegen import Cell, Map
 
 
 WALLS = ("N", "S", "E", "W")
 Wall = Tuple[int, int, str]
 State = Dict[Wall, bool]
+Position = Tuple[int, int]
+
+
+def build_map(
+    rows: int,
+    cols: int,
+    entry: Optional[Position] = None,
+    exit: Optional[Position] = None,
+) -> Tuple[Map, str]:
+    """Build a map and return it with what it printed to the console."""
+    console = io.StringIO()
+    with contextlib.redirect_stderr(console):
+        maze_map = Map(rows, cols, entry, exit)
+    return maze_map, console.getvalue()
+
+
+def marked_42(maze_map: Map) -> Set[Position]:
+    """Collect the positions of the cells that belong to the "42"."""
+    return {
+        (row, col)
+        for row in range(maze_map.rows)
+        for col in range(maze_map.cols)
+        if maze_map.cell(row, col).is_42
+    }
 
 
 def wall_state(maze_map: Map) -> State:
@@ -34,9 +60,12 @@ class TestCell(unittest.TestCase):
         for wall in WALLS:
             self.assertIs(getattr(cell, wall), True)
         self.assertIs(cell.path, False)
+        self.assertIs(cell.is_42, False)
 
     def test_does_not_know_position(self) -> None:
-        self.assertEqual(sorted(vars(Cell())), ["E", "N", "S", "W", "path"])
+        self.assertEqual(
+            sorted(vars(Cell())), ["E", "N", "S", "W", "is_42", "path"]
+        )
 
 
 class TestMap(unittest.TestCase):
@@ -124,6 +153,77 @@ class TestMap(unittest.TestCase):
         maze_map = Map(3, 3)
         with self.assertRaises(IndexError):
             maze_map.open_wall(3, 0, "N")
+
+
+class TestPattern42(unittest.TestCase):
+    """Marking and omission of the "42" pattern in Map.__init__."""
+
+    # The "42" centred in a 9x11 map: one free cell on every side.
+    CENTRED_9X11 = (
+        "...........",
+        "...........",
+        "..#.#.###..",
+        "..#.#...#..",
+        "..###.###..",
+        "....#.#....",
+        "....#.###..",
+        "...........",
+        "...........",
+    )
+
+    def expected_9x11(self) -> Set[Position]:
+        return {
+            (row, col)
+            for row, line in enumerate(self.CENTRED_9X11)
+            for col, char in enumerate(line)
+            if char == "#"
+        }
+
+    def test_marks_centred_pattern(self) -> None:
+        maze_map, console = build_map(9, 11, entry=(0, 0), exit=(8, 10))
+        self.assertEqual(marked_42(maze_map), self.expected_9x11())
+        self.assertEqual(console, "")
+
+    def test_marks_without_entry_and_exit(self) -> None:
+        maze_map, console = build_map(9, 11)
+        self.assertEqual(marked_42(maze_map), self.expected_9x11())
+        self.assertEqual(console, "")
+
+    def test_smallest_map_that_fits(self) -> None:
+        maze_map, console = build_map(7, 9)
+        self.assertEqual(len(marked_42(maze_map)), 20)
+        self.assertEqual(console, "")
+
+    def test_too_small_omits_pattern(self) -> None:
+        for rows, cols in ((6, 9), (7, 8), (3, 3), (1, 50), (50, 1)):
+            with self.subTest(rows=rows, cols=cols):
+                maze_map, console = build_map(rows, cols)
+                self.assertEqual(marked_42(maze_map), set())
+                self.assertIn("too small", console)
+
+    def test_entry_on_pattern_omits_pattern(self) -> None:
+        maze_map, console = build_map(9, 11, entry=(2, 2), exit=(8, 10))
+        self.assertEqual(marked_42(maze_map), set())
+        self.assertIn("entry or the exit", console)
+
+    def test_exit_on_pattern_omits_pattern(self) -> None:
+        maze_map, console = build_map(9, 11, entry=(0, 0), exit=(6, 8))
+        self.assertEqual(marked_42(maze_map), set())
+        self.assertIn("entry or the exit", console)
+
+    def test_entry_in_gap_of_pattern_keeps_pattern(self) -> None:
+        # (2, 3) is inside the drawing area but is not a cell of the "42".
+        maze_map, console = build_map(9, 11, entry=(2, 3), exit=(8, 10))
+        self.assertEqual(marked_42(maze_map), self.expected_9x11())
+        self.assertEqual(console, "")
+
+    def test_pattern_does_not_touch_walls_or_path(self) -> None:
+        maze_map, _ = build_map(9, 11)
+        for row in maze_map.grid:
+            for cell in row:
+                self.assertIs(cell.path, False)
+                for wall in WALLS:
+                    self.assertIs(getattr(cell, wall), True)
 
 
 if __name__ == "__main__":
