@@ -1,11 +1,11 @@
 """Run the first stage of A-Maze-ing: configuration parsing."""
 
 import sys
-from pprint import pprint
 from typing import Optional, Sequence, Tuple, cast
 
 from src.parser import Config, ConfigError, parse_config
-from src.mazegen.map import Map
+from src.mazegen.maze_generator import MazeGenerator
+from src.renderer import render_maze
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -19,17 +19,22 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         # The config uses (x, y); the map uses (row, col), so they swap.
         entry_x, entry_y = cast(Tuple[int, int], config["ENTRY"])
         exit_x, exit_y = cast(Tuple[int, int], config["EXIT"])
-        project_map = Map(
+        generator = MazeGenerator(
             cast(int, config["HEIGHT"]),
             cast(int, config["WIDTH"]),
             entry=(entry_y, entry_x),
             exit=(exit_y, exit_x),
+            perfect=cast(bool, config["PERFECT"]),
+            # SEED is optional: without it, each run gives a different maze.
+            seed=cast(Optional[int], config.get("SEED")),
         )
-        for row in project_map.grid:
-            for cell in row:
-                pprint(vars(cell), sort_dicts=False)
+        generator.write(cast(str, config["OUTPUT_FILE"]))
+        print(render_maze(generator.maze_map, show_path=True))
+        print(generator.path)
     except ConfigError as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
-    # pprint(config, sort_dicts=False)
+    except OSError as error:
+        print(f"Error: cannot write the output file: {error}", file=sys.stderr)
+        return 1
     return 0

@@ -26,18 +26,18 @@ Legenda: `[x]` pronta · `[ ]` pendente
   - Depende de: Task 1.
   - Pronta quando: as células do "42" estão marcadas no lugar certo e os casos de omissão imprimem o aviso.
 
-- [ ] **Task 3 — Geração do labirinto perfeito (com seed)**
+- [X] **Task 3 — Geração do labirinto perfeito (com seed)**
   - Algoritmo que abre paredes até todas as células (fora o "42") estarem conectadas, sem nenhum loop.
   - A mesma seed gera sempre o mesmo labirinto.
   - Depende de: Task 1, Task 2.
   - Pronta quando: toda célula fora do "42" é alcançável, as bordas externas continuam fechadas e duas execuções com a mesma seed dão o mesmo resultado.
 
-- [ ] **Task 4 — Caminho mais curto**
+- [X] **Task 4 — Caminho mais curto**
   - Busca em largura (BFS) da entrada até a saída, devolvendo o caminho como letras `N`, `E`, `S`, `W`.
   - Depende de: Task 1 (para testar de verdade: Task 3).
   - Pronta quando: seguir as letras a partir da entrada chega na saída sem atravessar parede.
 
-- [ ] **Task 5 — Arquivo de saída**
+- [X] **Task 5 — Arquivo de saída**
   - Escreve o grid em hexadecimal (bit 0 = N, 1 = E, 2 = S, 3 = W; bit 1 = parede fechada), uma linha por fileira.
   - Depois de uma linha vazia: entrada, saída e o caminho mais curto. Toda linha termina com `\n`.
   - Depende de: Task 3, Task 4.
