@@ -10,3 +10,7 @@ Sul	2	4
 Oeste	3	8
 
 Ou seja, 9 é 1 + 8, portanto tem parede norte (valor 1) e parede oeste (valor 8)
+
+
+tacar uma bomba lá
+obrigada por tudo Mat <3
