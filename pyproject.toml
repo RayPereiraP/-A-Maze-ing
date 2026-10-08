@@ -1,0 +1,27 @@
+# How to build the reusable "mazegen" package: python3 -m build --outdir .
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mazegen"
+version = "1.0.0"
+description = "Reusable maze generator of the A-Maze-ing project."
+readme = "src/mazegen/README.md"
+license = "MIT"
+license-files = ["LICENSE.md"]
+requires-python = ">=3.10"
+dependencies = []
+
+# Only the mazegen folder goes into the package: the parser, the renderer
+# and the menu, which also live in src/, stay out.
+[tool.setuptools]
+packages = ["mazegen"]
+
+[tool.setuptools.package-dir]
+mazegen = "src/mazegen"
+
+# py.typed tells mypy that the installed package has type hints.
+[tool.setuptools.package-data]
+mazegen = ["py.typed"]

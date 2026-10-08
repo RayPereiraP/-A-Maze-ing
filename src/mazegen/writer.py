@@ -3,8 +3,8 @@
 from pathlib import Path
 from typing import Dict, List, Union
 
-from src.mazegen.cell import Cell
-from src.mazegen.map import Map
+from .cell import Cell
+from .map import Map
 
 
 # wall -> value of its bit in the hexadecimal digit of a cell

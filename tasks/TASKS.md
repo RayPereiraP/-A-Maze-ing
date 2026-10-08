@@ -43,13 +43,13 @@ Legenda: `[x]` pronta · `[ ]` pendente
   - Depende de: Task 3, Task 4.
   - Pronta quando: `python3 maze_analyzer.py maze.txt` aceita o arquivo e reporta um labirinto perfeito e coerente.
 
-- [ ] **Task 6 — Modo não-perfeito (`PERFECT=False`)**
+- [X] **Task 6 — Modo não-perfeito (`PERFECT=False`)**
   - Parte do labirinto perfeito e abre paredes extras para virar um tabuleiro tipo Pac-Man.
   - Regras: os quatro cantos e o centro são corredores abertos, pelo menos 2 rotas independentes (loops), poucos dead-ends, nenhuma área aberta 3x3.
   - Depende de: Task 3 (para validar: Task 5).
   - Pronta quando: o `maze_analyzer.py` reporta o arquivo como tabuleiro jogável.
 
-- [ ] **Task 7 — Classe `MazeGenerator`**
+- [X] **Task 7 — Classe `MazeGenerator`**
   - Classe única que junta as Tasks 1 a 6: recebe tamanho, entrada, saída, perfect e seed; gera o labirinto; dá acesso à estrutura e ao caminho.
   - Fica no módulo `mazegen`, sem depender do parser nem do terminal.
   - Depende de: Task 3, Task 4, Task 6.
@@ -57,12 +57,12 @@ Legenda: `[x]` pronta · `[ ]` pendente
 
 ## Programa
 
-- [ ] **Task 8 — Render no terminal**
+- [X] **Task 8 — Render no terminal**
   - Desenha o labirinto em ASCII mostrando paredes, entrada, saída, o "42" e, opcionalmente, o caminho.
   - Depende de: Task 1, Task 4.
   - Pronta quando: o desenho bate com o arquivo de saída e o "42" é visível.
 
-- [ ] **Task 9 — Menu interativo e `a_maze_ing.py` completo**
+- [X] **Task 9 — Menu interativo e `a_maze_ing.py` completo**
   - Liga tudo: parser → gerador → arquivo de saída → render.
   - Interações: gerar outro labirinto, mostrar/esconder o caminho, trocar a cor das paredes, sair.
   - Nenhum erro derruba o programa (arquivo inexistente, config ruim, parâmetros impossíveis, Ctrl+C, entrada inválida no menu).
@@ -71,22 +71,22 @@ Legenda: `[x]` pronta · `[ ]` pendente
 
 ## Entrega
 
-- [ ] **Task 10 — Makefile e lint**
+- [X] **Task 10 — Makefile e lint**
   - Regras `install`, `run`, `debug`, `clean`, `lint` (e `lint-strict` opcional); `.gitignore` cobrindo os artefatos de Python.
   - Depende de: nada (o `run` só faz sentido completo depois da Task 9).
   - Pronta quando: `make lint` passa sem erros de flake8 e mypy.
 
-- [ ] **Task 11 — Pacote `mazegen` instalável**
+- [x] **Task 11 — Pacote `mazegen` instalável**
   - `pyproject.toml` e o que mais for preciso para gerar `mazegen-*.whl` / `.tar.gz`, com o arquivo gerado na raiz do repositório.
   - Depende de: Task 7.
   - Pronta quando: num virtualenv limpo, o pacote é construído das fontes, instalado com `pip` e importado.
 
-- [ ] **Task 12 — `LICENSE.md`**
+- [x] **Task 12 — `LICENSE.md`**
   - Escolher e escrever a licença, que precisa permitir reuso e distribuição do gerador.
   - Depende de: nada.
   - Pronta quando: o arquivo está na raiz e você sabe explicar a escolha.
 
-- [ ] **Task 13 — `README.md`**
+- [x] **Task 13 — `README.md`**
   - Primeira linha obrigatória em itálico; seções Description, Instructions e Resources (com o uso de IA).
   - Formato do config, algoritmo escolhido e por quê, o que é reutilizável e como usar o `mazegen`, gestão do projeto.
   - Depende de: todas as anteriores.

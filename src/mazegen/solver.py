@@ -3,7 +3,7 @@
 from collections import deque
 from typing import Deque, Dict, List, Tuple
 
-from src.mazegen.map import DIRECTIONS, Map, Position
+from .map import DIRECTIONS, Map, Position
 
 
 def shortest_path(maze_map: Map) -> str:

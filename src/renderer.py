@@ -17,6 +17,15 @@ OPEN_HORIZONTAL = "   "
 CLOSED_VERTICAL = "|"
 OPEN_VERTICAL = " "
 CORNER = "+"
+# ANSI code that ends a colour: the text after it uses the terminal default.
+RESET_COLOR = "\033[0m"
+
+
+def paint(text: str, color: str) -> str:
+    """Return the text wrapped in a colour code; unchanged without a colour."""
+    if not color:
+        return text
+    return color + text + RESET_COLOR
 
 
 def cell_text(maze_map: Map, position: Position, show_path: bool) -> str:
@@ -37,7 +46,9 @@ def cell_text(maze_map: Map, position: Position, show_path: bool) -> str:
     return EMPTY_TEXT
 
 
-def render_maze(maze_map: Map, show_path: bool = False) -> str:
+def render_maze(
+    maze_map: Map, show_path: bool = False, wall_color: str = ""
+) -> str:
     """Draw the map as text, ready to be printed on the terminal.
 
     Each row of the map becomes two lines: one with the cells and their
@@ -47,25 +58,31 @@ def render_maze(maze_map: Map, show_path: bool = False) -> str:
     Args:
         maze_map: map to draw.
         show_path: True to mark the cells whose path flag is set.
+        wall_color: ANSI colour code for the walls and corners; an empty
+            string draws them without any colour code.
 
     Returns:
         The lines of the drawing joined by newlines, without a final one.
     """
+    # Only what is a wall gets the colour; the inside of a cell never does.
+    corner = paint(CORNER, wall_color)
+    horizontal = paint(CLOSED_HORIZONTAL, wall_color)
+    vertical = paint(CLOSED_VERTICAL, wall_color)
     lines: List[str] = []
-    top = CORNER
+    top = corner
     for cell in maze_map.grid[0]:
-        top += (CLOSED_HORIZONTAL if cell.N else OPEN_HORIZONTAL) + CORNER
+        top += (horizontal if cell.N else OPEN_HORIZONTAL) + corner
     lines.append(top)
     for row in range(maze_map.rows):
         first = maze_map.cell(row, 0)
-        middle = CLOSED_VERTICAL if first.W else OPEN_VERTICAL
-        bottom = CORNER
+        middle = vertical if first.W else OPEN_VERTICAL
+        bottom = corner
         for col in range(maze_map.cols):
             cell = maze_map.cell(row, col)
             middle += cell_text(maze_map, (row, col), show_path)
-            middle += CLOSED_VERTICAL if cell.E else OPEN_VERTICAL
-            bottom += CLOSED_HORIZONTAL if cell.S else OPEN_HORIZONTAL
-            bottom += CORNER
+            middle += vertical if cell.E else OPEN_VERTICAL
+            bottom += horizontal if cell.S else OPEN_HORIZONTAL
+            bottom += corner
         lines.append(middle)
         lines.append(bottom)
     return "\n".join(lines)

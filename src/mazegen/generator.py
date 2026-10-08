@@ -3,7 +3,7 @@
 import random
 from typing import List, Optional, Set, Tuple
 
-from src.mazegen.map import DIRECTIONS, Map, Position
+from .map import DIRECTIONS, Map, Position
 
 
 # Loops a non-perfect maze must have, so there is always a second route.

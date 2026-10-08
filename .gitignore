@@ -1,4 +1,19 @@
+# Local Python runtime and scratch files
 /tmp
-/src/__pycache__
-/src/mazegen/__pycache__
-/tests/__pycache__
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Tool caches
+.mypy_cache/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Package build results
+build/
+dist/
+*.egg-info/

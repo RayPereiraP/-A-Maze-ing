@@ -3,7 +3,7 @@
 import sys
 from typing import Dict, List, Optional, Tuple
 
-from src.mazegen.cell import Cell
+from .cell import Cell
 
 
 Position = Tuple[int, int]

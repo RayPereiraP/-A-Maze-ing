@@ -3,10 +3,10 @@
 from pathlib import Path
 from typing import Optional, Union
 
-from src.mazegen.generator import generate_perfect, open_loops
-from src.mazegen.map import Map, Position
-from src.mazegen.solver import shortest_path
-from src.mazegen.writer import write_maze
+from .generator import generate_perfect, open_loops
+from .map import Map, Position
+from .solver import shortest_path
+from .writer import write_maze
 
 
 class MazeGenerator:
