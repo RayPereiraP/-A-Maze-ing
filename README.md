@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by LOGIN_HERE.*
+*This project has been created as part of the 42 curriculum by masalaib and  rayperei.*
 
 # A-Maze-ing
 
